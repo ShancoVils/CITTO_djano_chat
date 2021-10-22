@@ -26,7 +26,7 @@ SECRET_KEY = '9c&!&$#iuskr607=+gaw%6r!m^7c)^h9eka$9mo%tg@af#og4d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['citto-django-chat.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
