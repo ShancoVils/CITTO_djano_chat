@@ -149,7 +149,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('172.20.0.1', 6379)],
+            "hosts": [('citto-django-chat.herokuapp.com', 6379)],
         },
     },
 }
