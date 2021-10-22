@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'chat/static/'
 
 STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, "pokemon_app/static"),
+   os.path.join(BASE_DIR, "chat/static"),
 ]
 
 ASGI_APPLICATION = "django_chat.routing.application"
