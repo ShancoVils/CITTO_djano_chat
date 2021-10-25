@@ -146,12 +146,12 @@ ASGI_APPLICATION = "django_chat.routing.application"
 
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('citto-django-chat.herokuapp.com', 6379)],
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
+        "ROUTING": "chat.routing.channel_routing",
     },
 }
-
 
