@@ -9,7 +9,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class = "chat">
+    <div class = "chat" id = "chat-perent">
         <h1 class="display-3"></h1>
         <div class="chat-window"  id="chat">
     
@@ -19,12 +19,10 @@
         <p class="h6">Message</p>
         <input class="form-control" id="message-input" type="text" size="500">
         <input class="btn btn-primary" id="btn-submit" type="button" value="Отправить">
-        
-        
-        
         {{ room_name|json_script:"room-name" }}
     </div>
     <script>
+        let chat_perent = document.querySelector(".chat-window")
         let chat = document.querySelector("#chat")
         let input = document.querySelector("#message-input")
         let nickname = document.querySelector("#nickname")
@@ -41,11 +39,14 @@
         
         webSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            chat.innerHTML += '<div class="msg">'+ '<b>'+data.nickname + '</b>'+ ": " + data.message + '</div>'
+            chat.innerHTML += '<div class="msg">'+ '<b>'+data.nickname+ '</b>'+ ": "+ data.message + '</div>'
+            chat_perent.scrollTop = chat_perent.scrollHeight;
+            
         };
         
         
         btnSubmit.addEventListener("click", () => {
+            
             name_user = nickname.value;
             message = input.value;
             webSocket.send(JSON.stringify({

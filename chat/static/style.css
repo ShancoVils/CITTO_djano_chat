@@ -16,6 +16,7 @@
     margin-top: 20%
 }
 .chat{
+
     height: 80%;
     border-radius: 5px;
     padding: 10px;
@@ -30,6 +31,7 @@
 
 
 .chat-window{
+    overflow: auto;
     height: 40%;
     width: 100%;
     border: 1px solid black;
