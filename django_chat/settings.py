@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -126,13 +126,18 @@ USE_TZ = True
 #    os.path.join(BASE_DIR, "chat/static"),
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'chat/staticfiles')
 STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'chat/static'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
+
+
+
 
 
 ASGI_APPLICATION = "django_chat.routing.application"
