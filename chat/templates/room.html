@@ -11,15 +11,15 @@
 <body>
     <div class = "chat">
         <h1 class="display-3"></h1>
-        
+        <div class="chat-window"  id="chat">
+    
+        </div>
         <p class="h6">NickName</p>
         <input class="form-control" id="nickname" type="text" size="500">
         <p class="h6">Message</p>
         <input class="form-control" id="message-input" type="text" size="500">
         <input class="btn btn-primary" id="btn-submit" type="button" value="Отправить">
-        <div class="chat-window"  id="chat">
-    
-        </div>
+        
         
         
         {{ room_name|json_script:"room-name" }}
