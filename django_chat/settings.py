@@ -126,14 +126,13 @@ USE_TZ = True
 #    os.path.join(BASE_DIR, "chat/static"),
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'chat/static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'chat/static'),
+    os.path.join(BASE_DIR, 'chat/staticfiles'),
 )
-
 
 
 ASGI_APPLICATION = "django_chat.routing.application"
