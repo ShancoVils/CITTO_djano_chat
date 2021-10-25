@@ -32,6 +32,12 @@
         const roomName = JSON.parse(document.getElementById('room-name').textContent); 
         console.log(roomName)
 
+        function time_now(){
+            let mess_time = new Date()
+            message_time = mess_time.getHours()+":"+ mess_time.getMinutes()
+            return message_time
+        }
+
 
         header.innerHTML  = '<h1 class="display-4">' + 'Комната: ' + roomName + '</h1>'
 
@@ -39,19 +45,20 @@
         
         webSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            chat.innerHTML += '<div class="msg">'+ '<b>'+data.nickname+ '</b>'+ ": "+ data.message + '</div>'
+            chat.innerHTML += '<div class="msg">'+time_now() +" "+ '<b>'+data.nickname+ '</b>'+ ": "+ data.message + '</div>'
             chat_perent.scrollTop = chat_perent.scrollHeight;
             
         };
         
         
         btnSubmit.addEventListener("click", () => {
-            
+            message_time = time_now()
             name_user = nickname.value;
             message = input.value;
             webSocket.send(JSON.stringify({
                 'nickname': name_user,
-                'message': message
+                'message': message,
+                'time_message': message_time
             }));
             input.value = '';
         })

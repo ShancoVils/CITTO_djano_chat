@@ -46,6 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Получаем текст сообщения
         name_user = text_data_json['nickname']
         message = text_data_json['message']
+        time_message = text_data_json['time_message']
         
         # Добавляем сообщение в БД 
         await self.new_message(message=message, name_user = name_user)
@@ -57,6 +58,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'nickname': name_user,
                 'message': message,
+                'time_message':time_message
             }
         )
     
@@ -65,8 +67,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Получаем сообщение от receive
         nickname = event['nickname']
         message = event['message']
+        time_message = event['time_message']
         # Отправляем сообщение клиентам
         await self.send(text_data=json.dumps({
             'nickname': nickname,
             'message': message,
+            'time_message':time_message
         }, ensure_ascii=False))
