@@ -126,12 +126,12 @@ USE_TZ = True
 #    os.path.join(BASE_DIR, "chat/static"),
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'chat/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'chat/staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'chat/staticfiles'),
+    os.path.join(BASE_DIR, 'chat/static'),
 )
 
 
