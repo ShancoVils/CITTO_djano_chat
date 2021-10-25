@@ -35,27 +35,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Декоратор для работы с БД в асинхронном режиме
     @database_sync_to_async
     # Функция для создания нового сообщения в БД
-    def new_message(self, message):
+    def new_message(self, message, name_user):
         # Создаём сообщение в БД
-        Message.objects.create(text=message)
+        Message.objects.create(text=message, nickname = name_user)
  
     # Принимаем сообщение от пользователя
     async def receive(self, text_data=None, bytes_data=None):
         # Форматируем сообщение из JSON
         text_data_json = json.loads(text_data)
         # Получаем текст сообщения
-        # name_user = text_data_json['nickname']
+        name_user = text_data_json['nickname']
         message = text_data_json['message']
         
         # Добавляем сообщение в БД 
-        await self.new_message(message=message)
+        await self.new_message(message=message, name_user = name_user)
         
         # Отправляем сообщение 
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                # 'nickname': name_user,
+                'nickname': name_user,
                 'message': message,
             }
         )
@@ -63,10 +63,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Метод для отправки сообщения клиентам
     async def chat_message(self, event):
         # Получаем сообщение от receive
-        # nickname = event['nickname']
+        nickname = event['nickname']
         message = event['message']
         # Отправляем сообщение клиентам
         await self.send(text_data=json.dumps({
-            # 'nickname': nickname,
+            'nickname': nickname,
             'message': message,
         }, ensure_ascii=False))
