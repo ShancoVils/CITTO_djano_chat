@@ -126,13 +126,12 @@ USE_TZ = True
 #    os.path.join(BASE_DIR, "chat/static"),
 # ]
 
-
-BASE_DIR = os.path.join(os.path.abspath(__file__))
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'chat/static'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
 
