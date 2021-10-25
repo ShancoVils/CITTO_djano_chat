@@ -6,23 +6,19 @@
     <title>Chat Room</title>
     <base href="/">
     <link rel="stylesheet" type="text/css" href="{% static 'styles_css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script> {% endcomment %}
 </head>
 <body>
     <div class = "chat">
         <h1 class="display-3"></h1>
-        
         <p class="h6">NickName</p>
         <input class="form-control" id="nickname" type="text" size="500">
         <p class="h6">Message</p>
         <input class="form-control" id="message-input" type="text" size="500">
         <input class="btn btn-primary" id="btn-submit" type="button" value="Отправить">
         <div class="chat-window"  id="chat">
-    
         </div>
-        
-        
         {{ room_name|json_script:"room-name" }}
     </div>
     <script>
