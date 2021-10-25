@@ -126,7 +126,6 @@ USE_TZ = True
 # ]
 
 
-
 PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
@@ -137,6 +136,8 @@ PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ASGI_APPLICATION = "django_chat.routing.application"
 
@@ -151,4 +152,3 @@ CHANNEL_LAYERS = {
 }
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
