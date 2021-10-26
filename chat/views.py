@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 import redis
 from urllib import parse 
@@ -16,7 +17,7 @@ def list(request):
     url = parse.urlparse(redis_url)
     r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 
-    list_name = [key[14:1] for key in r.keys("*")]
+    list_name = [str(key)[14:-1] for key in r.keys("*")]
     context = {'date': list_name}
     print(list_name)
     
