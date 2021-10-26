@@ -16,10 +16,8 @@ def list(request):
     url = parse.urlparse(redis_url)
     r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 
-    list_name = r.keys("*")
-    print(list_name)
-    # list_name = [key for key in r.keys("*")]
+    list_name = [key for key in r.keys("*")]
     context = {'date': list_name}
-    # print(list_name)
+    print(list_name)
     
     return render(request, 'channels-list.html',context)
