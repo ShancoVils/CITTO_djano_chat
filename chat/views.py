@@ -11,7 +11,7 @@ def hub(request):
     return render(request, 'index.html')
 
 def list(request):
-    redis_url = os.getenv('redis://localhost:6379')
+    redis_url = os.getenv('REDIS_URL')
     parse.uses_netloc.append('redis')
     url = parse.urlparse(redis_url)
     r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
