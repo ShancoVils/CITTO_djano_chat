@@ -11,11 +11,11 @@ def hub(request):
     return render(request, 'index.html')
 
 def list(request):
-    redis_url = os.getenv('REDISTOGO_URL')
+    redis_url = os.getenv('redis://localhost:6379')
     parse.uses_netloc.append('redis')
     url = parse.urlparse(redis_url)
     r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-    
+
     list_name = r.keys("*")
     print(list_name)
     # list_name = [key for key in r.keys("*")]
