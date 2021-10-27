@@ -12,7 +12,9 @@
     <div class = "chat" id = "chat-perent">
         <h1 class="display-3"></h1>
         <div class="chat-window"  id="chat">
-    
+            {% for past_message in past_message%}
+                <div class="msg">{{past_message}}</div>
+            {% endfor %}    
         </div>
         <p class="h6">NickName</p>
         <input class="form-control" id="nickname" type="text" size="500">
@@ -37,12 +39,17 @@
             message_time = mess_time.getHours()+":"+ mess_time.getMinutes()
             return message_time
         }
-
-
         header.innerHTML  = '<h1 class="display-4">' + 'Комната: ' + roomName + '</h1>'
 
+
+
         const webSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/'+roomName + '/');
+        console.log(webSocket)
+
         
+
+        {% comment %} chat.innerHTML += '<div class="msg">'+time_now() +" "+ '<b>'+data.nickname+ '</b>'+ ": "+ data.message + '</div>' {% endcomment %}
+    
         webSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             chat.innerHTML += '<div class="msg">'+time_now() +" "+ '<b>'+data.nickname+ '</b>'+ ": "+ data.message + '</div>'
