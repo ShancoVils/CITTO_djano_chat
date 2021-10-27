@@ -12,6 +12,7 @@ console.log(roomName)
 header.innerHTML  = '<h1 class="display-4">' + 'Комната: ' + roomName + '</h1>'
 
 const webSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/'+roomName + '/');
+console.log(webSocket)
  
 webSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);

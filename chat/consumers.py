@@ -1,12 +1,13 @@
 # Импорт для работы с JSON
-import json 
+import json
+from threading import Event 
 # Импорт для асинхронного программирования
 from channels.generic.websocket import AsyncWebsocketConsumer
 # Импорт для работы с БД в асинхронном режиме
 from channels.db import database_sync_to_async
 # Импорт модели сообщений
 from .models import Message
- 
+import redis
  
 # Класс ChatConsumer
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -21,9 +22,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+        print(self.room_group_name)
+        print(self.channel_name)
         # Принимаем подключаем
         await self.accept()
- 
+
+    # def chat_message(self, event):
+    #     redis_get = redis.Redis()
+    #     message_info = redis_get.lrange(self.room_group_name, 0,-1)
+    #     message_info = event['message_info']
+
+    #     self.send(text_data=json.dumps({
+    #             'message_info': message_info,
+    #         }, ensure_ascii=False))
+
+    
+
     # Метод для отключения пользователя
     async def disconnect(self, close_code):
         # Отключаем пользователя
@@ -61,6 +75,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'time_message':time_message
             }
         )
+        r = redis.Redis()
+        message_info = "{0}: {1}".format(name_user,message)
+        r.rpush(self.room_group_name, message_info)
+
     
     # Метод для отправки сообщения клиентам
     async def chat_message(self, event):
@@ -74,3 +92,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'message': message,
             'time_message':time_message
         }, ensure_ascii=False))
+
+
+
