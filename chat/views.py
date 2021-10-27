@@ -5,7 +5,12 @@ from urllib import parse
 import os
 def room(request, room_name):
 
-    redis_get = redis.Redis()
+    redis_url = os.getenv('REDIS_URL')
+    parse.uses_netloc.append('redis')
+    url = parse.urlparse(redis_url)
+    redis_get = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+
+    # redis_get = redis.Redis()
     message_info = redis_get.lrange(room_name, 0,-1)
     maga = [str(arr)[2:-1] for arr in message_info]
     print(message_info)
