@@ -8,7 +8,9 @@ from channels.db import database_sync_to_async
 # Импорт модели сообщений
 from .models import Message
 import redis
- 
+from urllib import parse 
+import os
+
 # Класс ChatConsumer
 class ChatConsumer(AsyncWebsocketConsumer):
     
@@ -26,17 +28,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print(self.channel_name)
         # Принимаем подключаем
         await self.accept()
-
-    # def chat_message(self, event):
-    #     redis_get = redis.Redis()
-    #     message_info = redis_get.lrange(self.room_group_name, 0,-1)
-    #     message_info = event['message_info']
-
-    #     self.send(text_data=json.dumps({
-    #             'message_info': message_info,
-    #         }, ensure_ascii=False))
-
-    
 
     # Метод для отключения пользователя
     async def disconnect(self, close_code):
@@ -75,7 +66,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'time_message':time_message
             }
         )
-        r = redis.Redis()
+
+        redis_url = os.getenv('REDIS_URL')
+        parse.uses_netloc.append('redis')
+        url = parse.urlparse(redis_url)
+        r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+        # r = redis.Redis()
         message_info = "{0}: {1}".format(name_user,message)
         r.rpush(self.room_group_name, message_info)
 
