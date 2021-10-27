@@ -68,11 +68,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )
 
-        # redis_url = os.getenv('REDIS_URL')
-        # parse.uses_netloc.append('redis')
-        # url = parse.urlparse(redis_url)
-        # r = redis.Redis(host=url.hostname, port=rurl.port, db=0, password=url.password)
-        r = redis.Redis()
+        redis_url = os.getenv('REDIS_URL')
+        parse.uses_netloc.append('redis')
+        url = parse.urlparse(redis_url)
+        r = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+        # r = redis.Redis()
         time_mess = strftime("%H:%M", gmtime())
         message_info = "{0} {1}: {2}".format(time_mess,name_user,message)
         r.rpush(self.room_group_name, message_info)
